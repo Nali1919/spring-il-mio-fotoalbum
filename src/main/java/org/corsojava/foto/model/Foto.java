@@ -9,6 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Foto {
@@ -19,9 +22,26 @@ public class Foto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private int id;
+	
+	@Size(min = 5, max = 13, message = "non può essere più di 13 caratteri e meno di 5")
+	@NotNull(message="il nome non può essere nullo")
+	@NotEmpty(message="Il nome non deve essere vuoto")
 	private String titoloFoto ;
-	private String descrizione;
+	
+	@Size(min = 4, max = 20, message = "non può essere più di 20 caratteri e meno di 4")
+	@NotNull(message="il tag non può essere nullo")
+	@NotEmpty(message="Il tag non deve essere vuoto")
 	private String tag;
+	
+	@Size(min = 20, max = 500, message = "non può essere più di 500 caratteri e meno di 20")
+	@NotNull(message="la descrizione non può essere nullo")
+	@NotEmpty(message="la descrizione non deve essere vuoto")
+	private String descrizione;
+	
+	private String url;
+	
+	private boolean visibile;
+	
 	public String getTag() {
 		return tag;
 	}
@@ -29,11 +49,6 @@ public class Foto {
 		this.tag = tag;
 	}
 
-
-
-	private String url;
-	private boolean visibile;
-	
 	
 	public int getId() {
 		return id;
